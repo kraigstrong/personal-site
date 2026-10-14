@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --paper: #f6f4ef;
+  --surface: #fffdf9;
+  --surface-2: #eeebe3;
+  --ink: #1a1814;
+  --ink-2: #57534b;
+  --ink-3: #716c62;
+  --line: #e2ddd2;
+  --line-strong: #cfc8ba;
+  --accent: #d4520f;
+  --accent-ink: #b0440b;
+  --accent-soft: #fbe6d7;
+  --live: #1f7446;
+  --live-soft: #dcefe3;
+  --review: #8a5d00;
+  --review-soft: #f6ecd2;
+  --beta: #4049b8;
+  --beta-soft: #e4e6fa;
+  --event: #5f594f;
+  --event-soft: #ebe7df;
+  --shadow: 0 1px 2px rgb(26 24 20 / 0.04), 0 8px 24px -12px rgb(26 24 20 / 0.12);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #11100e;
+  --surface: #1a1916;
+  --surface-2: #24221e;
+  --ink: #f0ede6;
+  --ink-2: #b3ada2;
+  --ink-3: #8f897e;
+  --line: #2e2b26;
+  --line-strong: #423e37;
+  --accent: #ff7a2e;
+  --accent-ink: #ff9a5c;
+  --accent-soft: #3a2213;
+  --live: #6fd39b;
+  --live-soft: #173326;
+  --review: #f0c14b;
+  --review-soft: #3a2f12;
+  --beta: #a9afff;
+  --beta-soft: #23264a;
+  --event: #c4bcae;
+  --event-soft: #2a2824;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+/* Without JavaScript, follow the OS setting. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --paper: #11100e;
+    --surface: #1a1916;
+    --surface-2: #24221e;
+    --ink: #f0ede6;
+    --ink-2: #b3ada2;
+    --ink-3: #8f897e;
+    --line: #2e2b26;
+    --line-strong: #423e37;
+    --accent: #ff7a2e;
+    --accent-ink: #ff9a5c;
+    --accent-soft: #3a2213;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-live: var(--live);
+  --color-live-soft: var(--live-soft);
+  --color-review: var(--review);
+  --color-review-soft: var(--review-soft);
+  --color-beta: var(--beta);
+  --color-beta-soft: var(--beta-soft);
+  --color-event: var(--event);
+  --color-event-soft: var(--event-soft);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --shadow-card: var(--shadow);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+[data-expanded="false"] .extra {
+  display: none;
+}
+
+/* cmdk palette */
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  background: rgb(10 9 8 / 0.35);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+}
+
+[cmdk-dialog] {
+  position: fixed;
+  top: 14vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 32px));
+  z-index: 51;
+}
+
+[cmdk-item][data-selected="true"] {
+  background: var(--surface-2);
+}
+
+[cmdk-item][data-selected="true"] [data-hint] {
+  opacity: 1;
+}
+
+[cmdk-group-heading] {
+  padding: 0.75rem 0.75rem 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-rise {
+    animation: rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+[cmdk-input]:focus-visible {
+  outline: none;
+}
