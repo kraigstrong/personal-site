@@ -1,0 +1,25 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" rx="232" fill="#F6EFE3"/>
+  <circle cx="512" cy="584" r="324" fill="#FFF8EE" stroke="#EBC9A7" stroke-width="28"/>
+  <circle cx="512" cy="584" r="266" fill="none" stroke="#D6C3AE" stroke-width="22"/>
+  <line x1="512" y1="328" x2="512" y2="294" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="640" y1="362" x2="657" y2="333" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="735" y1="457" x2="764" y2="440" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="769" y1="584" x2="803" y2="584" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="735" y1="712" x2="764" y2="729" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="640" y1="807" x2="657" y2="836" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="512" y1="841" x2="512" y2="875" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="384" y1="807" x2="367" y2="836" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="289" y1="712" x2="260" y2="729" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="255" y1="584" x2="221" y2="584" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="289" y1="457" x2="260" y2="440" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <line x1="384" y1="362" x2="367" y2="333" stroke="#12355B" stroke-width="18" stroke-linecap="round"/>
+  <polygon points="356,190 512,132 668,190 512,248" fill="#556CD6"/>
+  <rect x="452" y="236" width="120" height="22" rx="11" fill="#D95D67"/>
+  <line x1="512" y1="246" x2="512" y2="286" stroke="#556CD6" stroke-width="18" stroke-linecap="round"/>
+  <line x1="590" y1="178" x2="632" y2="251" stroke="#E49A33" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="638" cy="265" r="14" fill="#E49A33"/>
+  <line x1="512" y1="584" x2="512" y2="360" stroke="#D95D67" stroke-width="34" stroke-linecap="round"/>
+  <line x1="512" y1="584" x2="680" y2="643" stroke="#2D8F87" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="512" cy="584" r="42" fill="#2D8F87"/>
+</svg>
