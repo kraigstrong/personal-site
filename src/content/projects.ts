@@ -30,7 +30,7 @@ export const projects: Project[] = [
   {
     id: "math-reef",
     name: "Math Reef",
-    status: "review",
+    status: "live",
     platform: "iOS",
     tagline: "Math practice for grades 1–5. Swim into the right answer.",
     description:
@@ -41,7 +41,13 @@ export const projects: Project[] = [
       "Kids-category privacy: no identifiers or timestamps, and a test pins the exact analytics payload keys.",
     ],
     stack: ["Swift", "SwiftUI", "SpriteKit"],
-    links: [{ label: "Product page", href: "https://brightbench.app/products/math-reef" }],
+    links: [
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/us/app/math-reef-math-games-for-kids/id6817532623",
+      },
+      { label: "Product page", href: "https://brightbench.app/products/math-reef" },
+    ],
     featured: true,
   },
   {

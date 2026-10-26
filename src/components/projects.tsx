@@ -111,25 +111,45 @@ function ProjectCard({ project, media, compact = false }: { project: Project; me
               <Tag key={s}>{s}</Tag>
             ))}
           </ul>
-          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
             {project.links.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group inline-flex items-center gap-1 text-[13px] font-medium text-accent-ink"
-                >
-                  {link.label}
-                  <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  <span className="sr-only"> for {project.name} (opens in a new tab)</span>
-                </a>
+                {link.href.startsWith("https://apps.apple.com/") ? (
+                  <AppStoreBadge href={link.href} name={project.name} />
+                ) : (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-center gap-1 text-[13px] font-medium text-accent-ink"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <span className="sr-only"> for {project.name} (opens in a new tab)</span>
+                  </a>
+                )}
               </li>
             ))}
           </ul>
         </footer>
       </div>
     </article>
+  );
+}
+
+// Apple's artwork, unmodified: the preferred black badge (its gray rule
+// carries it on dark backgrounds), 40px tall, with a quarter-height of clear space.
+function AppStoreBadge({ href, name }: { href: string; name: string }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="block rounded-[7px]">
+      <Image
+        src="/badges/download-on-the-app-store.svg"
+        alt={`Download ${name} on the App Store (opens in a new tab)`}
+        width={120}
+        height={40}
+        unoptimized
+      />
+    </a>
   );
 }
 
