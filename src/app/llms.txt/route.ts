@@ -1,6 +1,7 @@
 import { experience } from "@/content/experience";
 import { earlierRoles, education, extras, profile } from "@/content/profile";
-import { projects, statusLabel } from "@/content/projects";
+import { projects, statusLabel, studio, studioLines } from "@/content/projects";
+import type { Project } from "@/content/types";
 import { formatRange } from "@/lib/dates";
 
 // A plain-text version of the site for language models and quick reading,
@@ -38,14 +39,26 @@ function body() {
     `- Certifications: ${extras.certifications}`,
     `- Languages: ${extras.languages}`,
     "",
-    "## Side projects",
+    `## ${studio.name}`,
+    "",
+    `${studio.tagline} ${studio.intro}`,
+    "",
   );
-  for (const p of projects) {
-    lines.push("", `### ${p.name} (${statusLabel[p.status]}, ${p.platform})`, "", `${p.tagline} ${p.description}`, "");
-    for (const d of p.details) lines.push(`- ${d}`);
-    for (const l of p.links) lines.push(`- ${l.label}: ${l.href}`);
+  for (const p of studio.principles) lines.push(`- ${p.title} ${p.body}`);
+  for (const l of studio.links) lines.push(`- ${l.label}: ${l.href}`);
+  for (const line of studioLines) {
+    lines.push("", `### ${line.label}`, "", line.blurb);
+    for (const p of projects.filter((p) => p.studioLine === line.id)) pushProject(lines, p, "####");
   }
+  lines.push("", "## Also built");
+  for (const p of projects.filter((p) => !p.studioLine)) pushProject(lines, p, "###");
   return lines.join("\n") + "\n";
+}
+
+function pushProject(lines: string[], p: Project, heading: string) {
+  lines.push("", `${heading} ${p.name} (${statusLabel[p.status]}, ${p.platform})`, "", `${p.tagline} ${p.description}`, "");
+  for (const d of p.details) lines.push(`- ${d}`);
+  for (const l of p.links) lines.push(`- ${l.label}: ${l.href}`);
 }
 
 export function GET() {

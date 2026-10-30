@@ -1,7 +1,7 @@
 # personal-site
 
 Source for [kraigstrong.com](https://kraigstrong.com): an interactive résumé that leads with my
-career and backs it up with side projects I still build and ship myself.
+career and backs it up with the games and learning apps I build and ship through my studio, BrightBench.
 
 ## Run it
 
@@ -21,8 +21,7 @@ Everything on the page comes from `src/content/`:
 | --- | --- |
 | `profile.ts` | Name, title, links, summary, "At a glance" numbers, education, extras. `asOf` sets the month that "Present" durations are measured to; bump it when you update content. |
 | `experience.ts` | One chapter per company: roles (promotions stack), intro line, metrics and bullets in display order (the first four show before "Show more") |
-| `projects.ts` | Side projects and their status labels |
-| `approach.ts` | "How I build" principles |
+| `projects.ts` | BrightBench, its Play and Learn apps, other projects, and status labels |
 
 `/llms.txt`, the schema.org `Person` data, the sitemap and the social card are generated from
 the same files, so they never drift from the page.
