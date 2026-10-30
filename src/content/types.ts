@@ -24,7 +24,10 @@ export type Chapter = {
   tags: string[];
 };
 
-export type ProjectStatus = "live" | "review" | "beta" | "event";
+export type ProjectStatus = "live" | "review" | "upcoming" | "beta" | "event";
+
+/** BrightBench's two shelves, matching brightbench.app. */
+export type StudioLine = "play" | "learn";
 
 export type ProjectLink = {
   label: string;
@@ -41,6 +44,8 @@ export type Project = {
   details: string[];
   stack: string[];
   links: ProjectLink[];
+  /** Unset for work outside the studio. */
+  studioLine?: StudioLine;
   /** Main-column card size. */
   featured: boolean;
 };

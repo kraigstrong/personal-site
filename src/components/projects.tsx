@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { projects, shippingIntro, statusLabel } from "@/content/projects";
-import type { Project } from "@/content/types";
+import { projects, statusLabel, studio, studioLines } from "@/content/projects";
+import type { Project, ProjectLink } from "@/content/types";
 import { ArrowUpRight } from "./icons";
 import { LoopVideo } from "./loop-video";
 import { ProjectIcon } from "./project-art";
@@ -22,28 +22,53 @@ const MEDIA: Record<string, ReactNode> = {
     </div>
   ),
   "bigger-fish": <WorldSwitcher />,
+  "double-putt": <DoublePuttCourses />,
 };
 
 export function Projects() {
-  const featured = projects.filter((p) => p.featured);
-  const more = projects.filter((p) => !p.featured);
+  const elsewhere = projects.filter((p) => !p.studioLine);
   return (
     <section id="projects" aria-labelledby="projects-title" className="scroll-mt-24">
-      <SectionHeading kicker="Still shipping">
-        <span id="projects-title">Side projects</span>
+      <SectionHeading kicker="Independent studio">
+        <span id="projects-title">{studio.name}</span>
       </SectionHeading>
 
-      <p className="max-w-[60ch] text-[15px] leading-relaxed text-ink-2">{shippingIntro}</p>
-
-      <div className="mt-10 flex flex-col gap-8">
-        {featured.map((p) => (
-          <ProjectCard key={p.id} project={p} media={MEDIA[p.id]} />
-        ))}
+      <div className="flex items-start gap-4">
+        <ProjectIcon id={studio.id} name={studio.name} size={52} />
+        <div className="min-w-0 flex-1">
+          <p className="text-[17px] font-medium text-ink">{studio.tagline}</p>
+          <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink-2">{studio.intro}</p>
+        </div>
       </div>
+
+      <h3 className="mt-7 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-3">How the studio runs</h3>
+      <ul className="mt-2 flex flex-col gap-2">
+        {studio.principles.map((p) => (
+          <li key={p.title} className="relative pl-5 text-[14.5px] leading-relaxed text-ink-2">
+            <span aria-hidden="true" className="absolute top-[0.7em] left-0 h-px w-2.5 bg-accent" />
+            <span className="font-medium text-ink">{p.title}</span> {p.body}
+          </li>
+        ))}
+      </ul>
+      <CardFooter stack={[]} links={studio.links} name={studio.name} />
+
+      {studioLines.map((line) => (
+        <div key={line.id} className="mt-14">
+          <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-ink">{line.label}</h3>
+          <p className="mt-1.5 text-[14.5px] text-ink-2">{line.blurb}</p>
+          <div className="mt-5 flex flex-col gap-6">
+            {projects
+              .filter((p) => p.studioLine === line.id)
+              .map((p) => (
+                <ProjectCard key={p.id} project={p} media={MEDIA[p.id]} compact={!p.featured} />
+              ))}
+          </div>
+        </div>
+      ))}
 
       <h3 className="mt-14 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">Also built</h3>
       <div className="mt-4 flex flex-col gap-4">
-        {more.map((p) => (
+        {elsewhere.map((p) => (
           <ProjectCard key={p.id} project={p} compact />
         ))}
       </div>
@@ -55,6 +80,7 @@ function StatusPill({ status }: { status: Project["status"] }) {
   const tone = {
     live: "bg-live-soft text-live",
     review: "bg-review-soft text-review",
+    upcoming: "bg-review-soft text-review",
     beta: "bg-beta-soft text-beta",
     event: "bg-event-soft text-event",
   }[status];
@@ -95,45 +121,63 @@ function ProjectCard({ project, media, compact = false }: { project: Project; me
 
         <p className="mt-4 text-[14.5px] leading-relaxed text-ink-2">{project.description}</p>
 
-        <h4 className="mt-5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-3">Under the hood</h4>
-        <ul className="mt-2 flex flex-col gap-2">
-          {project.details.map((d) => (
-            <li key={d} className="relative pl-5 text-[13.5px] leading-relaxed text-ink-2">
-              <span aria-hidden="true" className="absolute top-[0.7em] left-0 h-px w-2.5 bg-accent" />
-              {d}
-            </li>
-          ))}
-        </ul>
+        {project.details.length > 0 && (
+          <>
+            <h4 className="mt-5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-3">Under the hood</h4>
+            <DetailList items={project.details} />
+          </>
+        )}
 
-        <footer className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-          <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
-            {project.stack.map((s) => (
-              <Tag key={s}>{s}</Tag>
-            ))}
-          </ul>
-          <ul className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
-            {project.links.map((link) => (
-              <li key={link.href}>
-                {link.href.startsWith("https://apps.apple.com/") ? (
-                  <AppStoreBadge href={link.href} name={project.name} />
-                ) : (
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group inline-flex items-center gap-1 text-[13px] font-medium text-accent-ink"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    <span className="sr-only"> for {project.name} (opens in a new tab)</span>
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-        </footer>
+        <CardFooter stack={project.stack} links={project.links} name={project.name} />
       </div>
     </article>
+  );
+}
+
+function DetailList({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-2 flex flex-col gap-2">
+      {items.map((d) => (
+        <li key={d} className="relative pl-5 text-[13.5px] leading-relaxed text-ink-2">
+          <span aria-hidden="true" className="absolute top-[0.7em] left-0 h-px w-2.5 bg-accent" />
+          {d}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function CardFooter({ stack, links, name }: { stack: string[]; links: ProjectLink[]; name: string }) {
+  return (
+    <footer className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+      {stack.length > 0 && (
+        <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
+          {stack.map((s) => (
+            <Tag key={s}>{s}</Tag>
+          ))}
+        </ul>
+      )}
+      <ul className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
+        {links.map((link) => (
+          <li key={link.href}>
+            {link.href.startsWith("https://apps.apple.com/") ? (
+              <AppStoreBadge href={link.href} name={name} />
+            ) : (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-1 text-[13px] font-medium text-accent-ink"
+              >
+                {link.label}
+                <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <span className="sr-only"> for {name} (opens in a new tab)</span>
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </footer>
   );
 }
 
@@ -176,6 +220,40 @@ function TimeTutorGallery() {
               sizes="170px"
               className="h-[340px] w-auto rounded-xl shadow-[0_8px_24px_-12px_rgb(18_53_91/0.35)]"
             />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function DoublePuttCourses() {
+  const courses = [
+    {
+      id: "nightfall",
+      name: "Nightfall",
+      label: "Double Putt on Nightfall: both balls slipping past a windmill's turning blades in the snow",
+    },
+    { id: "bigtop", name: "Big Top", label: "Double Putt on Big Top: two greens in the circus ring, both balls dropping" },
+    { id: "starbase", name: "Starbase", label: "Double Putt on Starbase: a ball zipping through a teleporter pad" },
+  ];
+  return (
+    <div className="bg-[#1f4a2c]">
+      <ul className="mx-auto grid max-w-[600px] grid-cols-3 gap-3 px-4 py-5 sm:gap-4 sm:px-6">
+        {courses.map((c) => (
+          <li key={c.id}>
+            <figure>
+              <div className="overflow-hidden rounded-xl shadow-[0_12px_32px_-12px_rgb(0_0_0/0.6)]">
+                <LoopVideo
+                  src={`/projects/double-putt/courses/${c.id}.mp4`}
+                  poster={`/projects/double-putt/courses/${c.id}-poster.jpg`}
+                  label={c.label}
+                  width={480}
+                  height={904}
+                />
+              </div>
+              <figcaption className="mt-2 text-center font-mono text-[11px] text-white/70">{c.name}</figcaption>
+            </figure>
           </li>
         ))}
       </ul>

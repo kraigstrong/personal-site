@@ -3,7 +3,7 @@
 import { Command } from "cmdk";
 import { useEffect, useState, type ReactNode } from "react";
 import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
+import { projects, studio } from "@/content/projects";
 import { toggleTheme, useTheme } from "@/lib/theme";
 import { copyText } from "./copy-email";
 import { SECTIONS } from "./section-nav";
@@ -119,7 +119,7 @@ export function CommandPalette() {
           </Command.Group>
 
           <Command.Group heading="Projects">
-            {projects.flatMap((p) =>
+            {[studio, ...projects].flatMap((p) =>
               p.links.map((link) => (
                 <Item
                   key={`${p.id}-${link.href}`}

@@ -1,4 +1,3 @@
-import { Approach } from "@/components/approach";
 import { CommandPalette } from "@/components/command-palette";
 import { Contact } from "@/components/contact";
 import { Experience } from "@/components/experience";
@@ -36,7 +35,6 @@ export default function Home() {
           <Highlights />
           <Experience />
           <Projects />
-          <Approach />
           <Contact />
           <footer className="flex flex-wrap justify-between gap-2 border-t border-line pt-6 font-mono text-[11px] text-ink-3">
             <span>Updated {formatStamp(profile.asOf)}</span>

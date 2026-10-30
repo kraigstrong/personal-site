@@ -19,6 +19,8 @@ export function ProjectIcon({ id, name, size = 48 }: { id: string; name: string;
           <Image src="/projects/brightbench/fox.png" alt="" width={size * 1.5} height={size} className="max-w-none translate-y-[6%]" />
         </span>
       );
+    case "double-putt":
+      return <Image src="/projects/double-putt/icon.png" alt="" width={size} height={size} className={box} />;
     case "keepsake":
       return (
         <span className={`${box} flex items-center justify-center bg-[#211F1B]`} style={style} aria-hidden="true">
