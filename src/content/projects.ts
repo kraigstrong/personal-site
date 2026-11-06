@@ -33,7 +33,7 @@ export const projects: Project[] = [
   {
     id: "bigger-fish",
     name: "Bigger Fish",
-    status: "upcoming",
+    status: "live",
     platform: "iOS",
     tagline: "A one-touch arcade game. Eat fast. Stay alive.",
     description:
@@ -45,6 +45,10 @@ export const projects: Project[] = [
     ],
     stack: ["Swift", "SpriteKit", "SwiftUI"],
     links: [
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/app/bigger-fish-eat-grow/id6819553069",
+      },
       { label: "biggerfish.app", href: "https://biggerfish.app" },
       { label: "Source", href: "https://github.com/kraigstrong/bigger-fish" },
     ],
